@@ -30,3 +30,28 @@ class UserManager:
             return False
         self.users.remove(user)
         return True
+
+    def list_users(self):
+        return self.users
+
+    def save_to_json(self,filepath):
+        with open(filepath,"w",encoding="utf_8") as f:
+            json.dump(self.users,f,ensure_ascii=False)
+
+    def load_from_json(self,filepath):
+        try:
+            f = open(filepath,"r",encoding =  "utf_8")
+        except FileNotFoundError:
+            return
+
+        with f:
+            self.users = json.load(f)
+
+        if self.users:
+            max -id = 0
+            for u in self.users:
+                if u["id"] > max_id:
+                    max_id = u["id"]
+            self.next_id = max_id + 1
+        else:
+            self.next_id = 1
